@@ -762,7 +762,7 @@ if (substring(cluster$cl, 1, nchar("R-")) == "R-"){
     
     #if else chooses the right database
     if (input$db =="NvERTx.4"){
-      db <- c("/srv/shiny-server/NvERTx_4/NvERTx.4")
+      db <- c("/srv/shiny-server/StellaTx/NvERTx.4")
       remote <- c("")
     } else {
       db <- c("nr")
