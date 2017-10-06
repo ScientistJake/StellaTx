@@ -37,7 +37,7 @@ server <- function(input, output, session){
     req(searchTerm())
     search <- dbGetQuery(con, paste0("select * from ER_plotter_annotation where ((Nemve1_tophit LIKE ",paste("'%",as.character(searchTerm()),"%'",sep=""),") OR (Uniprot_ID LIKE ",paste("'%",as.character(searchTerm()),"%'",collapse=", ",sep=""),") OR (Top_nr_hit_eval LIKE ",paste("'%",as.character(searchTerm()),"%'",collapse=", ",sep=""),") OR (Uniprot_Description LIKE ",paste("'%",as.character(searchTerm()),"%'",collapse=", ",sep=""),"))"))
     NvERtx_ID <- search$nvertx_id
-    search <- search[c(2,9,10,11)]
+    search <- search[c(2,8,9,10)]
     datatable( cbind(' ' = '&oplus;',NvERtx_ID, search),
                rownames = T,
                escape = F,
@@ -184,10 +184,10 @@ if (substring(cluster$cl, 1, nchar("R-")) == "R-"){
     Cluster <- dbGetQuery(con, query)
     row.names(Cluster) <- Cluster$nvertx_id
 if (substring(cluster$cl, 1, nchar("R-")) == "R-"){    
-      Cluster <- Cluster[,c(4,5,9,10)]
+      Cluster <- Cluster[,c(3,4,8,9)]
       Cluster[order(-Cluster$Mfuzz_R_Score),]
     } else {
-      Cluster <- Cluster[,c(6,7,9,10)]
+      Cluster <- Cluster[,c(5,6,8,9)]
       Cluster[order(-Cluster$Mfuzz_E_Score),]
     }  
   })
@@ -610,14 +610,14 @@ if (substring(cluster$cl, 1, nchar("R-")) == "R-"){
                selection = 'none',
                options = list(dom = 'ft', 
                               columnDefs = list(
-                                list(visible = FALSE, targets = c(0,12)),
+                                list(visible = FALSE, targets = c(0,11,12)),
                                 list(orderable = FALSE, className = 'details-control', targets = 1)
                               )
                ),
                callback = JS("table.column(1).nodes().to$().css({cursor: 'pointer'});
                              var format = function(d) {
                              return '<div style=\"background-color:#eee; padding: .5em;\"> Extra Hits: ' +
-                             d[12] + '</div>';
+                             d[11] + '</div>';
                              };
                              table.on('click', 'td.details-control', function() {
                              var td = $(this), row = table.row(td.closest('tr'));
@@ -762,7 +762,7 @@ if (substring(cluster$cl, 1, nchar("R-")) == "R-"){
     
     #if else chooses the right database
     if (input$db =="NvERTx.4"){
-      db <- c("/srv/shiny-server/StellaTx/NvERTx.4")
+      db <- c("NvERTx.4")
       remote <- c("")
     } else {
       db <- c("nr")

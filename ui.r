@@ -245,8 +245,6 @@ ui <- tagList(
               tabPanel("Blast",
                 #This block gives us all the inputs:
                 mainPanel(
-                  p("This only works locally for now...",style="color:red"),
-                  p("Click 'BLAST!' to see a sample result.",style="color:red"),
                   textAreaInput('query', 'Input sequence:', value = "", placeholder = "", width = "600px", height="200px"),
                   selectInput("db", "Databse:", choices=c("NvERTx.4","nr"), width="120px"),
                   div(style="display:inline-block",
